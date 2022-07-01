@@ -1,17 +1,20 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
-import store from './app/store'
-import { Provider } from 'react-redux'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import store from "./app/store";
+import { Provider } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { worker } from './api/server'
+import PostsList from "./features/posts/PostsList";
+import AddPostForm from "./features/posts/AddPostForm";
+
+import { worker } from "./api/server";
 
 // Wrap app rendering so we can wait for the mock API to initialize
 async function start() {
   // Start our mock API server
-  await worker.start({ onUnhandledRequest: 'bypass' })
+  await worker.start({ onUnhandledRequest: "bypass" });
 
   ReactDOM.render(
     <React.StrictMode>
@@ -22,9 +25,10 @@ async function start() {
               <Route
                 index
                 element={
-                  <section>
-                    <h2>Welcome to the Redux Essentials example app!</h2>
-                  </section>
+                  <>
+                    <AddPostForm />
+                    <PostsList />
+                  </>
                 }
               />
             </Route>
@@ -32,8 +36,8 @@ async function start() {
         </BrowserRouter>
       </Provider>
     </React.StrictMode>,
-    document.getElementById('root')
-  )
+    document.getElementById("root")
+  );
 }
 
-start()
+start();
