@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import PostNotfound from "./PostNotFound";
+
 const SinglePostPage = () => {
   const { postId } = useParams();
 
@@ -10,11 +12,7 @@ const SinglePostPage = () => {
   });
 
   if (!post) {
-    return (
-      <section>
-        <h2>Post not found!</h2>
-      </section>
-    );
+    return <PostNotfound />;
   }
 
   return (

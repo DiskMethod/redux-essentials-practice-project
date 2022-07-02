@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PostsList from "./features/posts/PostsList";
 import AddPostForm from "./features/posts/AddPostForm";
 import SinglePostPage from "./features/posts/SinglePostPage";
+import PostNotfound from "./features/posts/PostNotFound";
 
 import { worker } from "./api/server";
 
@@ -33,6 +34,7 @@ async function start() {
                 }
               />
               <Route path="/posts/:postId" element={<SinglePostPage />} />
+              <Route path="/posts/*" element={<PostNotfound />} />
             </Route>
           </Routes>
         </BrowserRouter>
