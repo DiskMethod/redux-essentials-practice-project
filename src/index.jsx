@@ -10,6 +10,7 @@ import PostsList from "./features/posts/PostsList";
 import AddPostForm from "./features/posts/AddPostForm";
 import SinglePostPage from "./features/posts/SinglePostPage";
 import PostNotfound from "./features/posts/PostNotFound";
+import EditPostForm from "./features/posts/EditPostForm";
 
 import { worker } from "./api/server";
 
@@ -33,7 +34,9 @@ async function start() {
                   </>
                 }
               />
-              <Route path="/posts/:postId" element={<SinglePostPage />} />
+              <Route path="/posts/:postId" element={<SinglePostPage />}>
+                <Route path="edit" element={<EditPostForm />} />
+              </Route>
               <Route path="/posts/*" element={<PostNotfound />} />
             </Route>
           </Routes>

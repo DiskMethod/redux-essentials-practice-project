@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link, Outlet } from "react-router-dom";
 
 import PostNotfound from "./PostNotFound";
 
@@ -20,7 +20,11 @@ const SinglePostPage = () => {
       <article className="post">
         <h2>{post.title}</h2>
         <p className="post-content">{post.content}</p>
+        <Link to="edit" className="button">
+          Edit Post
+        </Link>
       </article>
+      <Outlet />
     </section>
   );
 };
