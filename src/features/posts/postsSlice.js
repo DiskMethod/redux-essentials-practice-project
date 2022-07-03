@@ -43,22 +43,6 @@ const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    postAdded: {
-      reducer: (state, action) => {
-        state.posts.push(action.payload);
-      },
-      prepare: (title, content, userId) => {
-        return {
-          payload: {
-            id: nanoid(),
-            date: new Date().toISOString(),
-            title,
-            content,
-            userId,
-          },
-        };
-      },
-    },
     postUpdated: (state, action) => {
       const { id, title, content } = action.payload;
       const post = state.posts.find((post) => post.id === id);
@@ -87,6 +71,9 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(addNewPost.fulfilled, (state, action) => {
+        state.posts.push(action.payload);
       });
   },
 });
@@ -96,7 +83,15 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
   return response.data;
 });
 
-export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions;
+export const addNewPost = createAsyncThunk(
+  "posts/addNewPost",
+  async (initialPost) => {
+    const response = await client.post("/fakeApi/posts", initialPost);
+    return response.data;
+  }
+);
+
+export const { postUpdated, reactionAdded } = postsSlice.actions;
 
 export const selectAllPosts = (state) => state.posts.posts;
 
