@@ -11,6 +11,9 @@ import AddPostForm from "./features/posts/AddPostForm";
 import SinglePostPage from "./features/posts/SinglePostPage";
 import PostNotfound from "./features/posts/PostNotFound";
 import EditPostForm from "./features/posts/EditPostForm";
+import UsersList from "./features/users/UsersList";
+import UserPage from "./features/users/UserPage";
+import NotificationsList from "./features/notifications/NotificationsList";
 
 import { worker } from "./api/server";
 import { fetchUsers } from "./features/users/usersSlice";
@@ -40,6 +43,9 @@ async function start() {
               <Route path="/posts/:postId" element={<SinglePostPage />}>
                 <Route path="edit" element={<EditPostForm />} />
               </Route>
+              <Route path="users" element={<UsersList />} />
+              <Route path="/users/:userId" element={<UserPage />} />
+              <Route path="notifications" element={<NotificationsList />} />
               <Route path="/posts/*" element={<PostNotfound />} />
             </Route>
           </Routes>
