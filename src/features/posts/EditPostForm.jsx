@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectPostById } from "./postsSlice";
 
+// import { useGetPostQuery } from "../../api/apiSlice";
 import { postUpdated } from "./postsSlice";
 
 const EditPostForm = () => {
