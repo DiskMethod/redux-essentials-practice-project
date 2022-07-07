@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { selectPostById } from "./postsSlice";
+import { useGetPostQuery, useEditPostMutation } from "../../api/apiSlice";
 
-// import { useGetPostQuery } from "../../api/apiSlice";
-import { postUpdated } from "./postsSlice";
+import Spinner from "../../components/Spinner";
 
 const EditPostForm = () => {
   const { postId } = useParams();
 
-  const post = useSelector((state) => selectPostById(state, postId));
+  const { data: post } = useGetPostQuery(postId);
+  const [updatePost, { isLoading }] = useEditPostMutation();
 
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onTitleChanged = (e) => {
@@ -25,15 +23,13 @@ const EditPostForm = () => {
     setContent(e.target.value);
   };
 
-  const onSavePostClicked = () => {
+  const onSavePostClicked = async () => {
     if (title && content) {
-      dispatch(
-        postUpdated({
-          id: postId,
-          title,
-          content,
-        })
-      );
+      await updatePost({
+        id: postId,
+        title,
+        content,
+      });
       navigate(`/posts/${postId}`);
     }
   };
@@ -66,6 +62,7 @@ const EditPostForm = () => {
         <button type="button" onClick={onCloseEdit}>
           Close Edit
         </button>
+        {isLoading && <Spinner text="Loading..." />}
       </form>
     </section>
   );
