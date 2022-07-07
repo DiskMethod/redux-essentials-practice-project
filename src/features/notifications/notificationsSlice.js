@@ -25,11 +25,6 @@ const notificationsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchNotifications.fulfilled, (state, action) => {
-      // state.push(...action.payload);
-      // state.forEach((notification) => {
-      //   notification.isNew = !notification.read;
-      // });
-      // state.sort((a, b) => b.date.localeCompare(a.date));
       notificationsAdapter.upsertMany(state, action.payload);
       Object.values(state.entities).forEach((notification) => {
         notification.isNew = !notification.read;

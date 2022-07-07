@@ -10,9 +10,7 @@ const AddPostForm = () => {
   const [content, setContent] = useState("");
   const [userId, setUserId] = useState("");
 
-  const [addNewPost, response] = useAddNewPostMutation();
-  const { isLoading } = response;
-
+  const [addNewPost, { isLoading }] = useAddNewPostMutation();
   const users = useSelector(selectAllUsers);
 
   const canSave = [title, content, userId].every(Boolean) && !isLoading;
